@@ -1,17 +1,18 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.exception.ErrorMessages;
+import christmas.util.InputValidator;
 import christmas.util.PromptMessages;
 
 public class InputView {
+    InputValidator inputValidator = new InputValidator();
     public int readDate() {
         while (true) {
             System.out.println(PromptMessages.DATE_PROMPT);
             String input = Console.readLine();
 
             try {
-                validateDateInput(input);
+                inputValidator.validateDateInput(input);
                 return convertStringToInt(input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
@@ -19,16 +20,6 @@ public class InputView {
         }
     }
 
-    private void validateDateInput(String input) {
-        if (!input.matches("\\d+")) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_NUMBER);
-        }
-
-        int date = Integer.parseInt(input);
-        if (date < 1 || date > 31) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_DATE_RANGE);
-        }
-    }
 
     private int convertStringToInt(String input) {
         return Integer.parseInt(input);
