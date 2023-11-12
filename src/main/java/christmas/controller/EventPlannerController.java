@@ -1,7 +1,11 @@
 package christmas.controller;
 
-public class EventPlannerController {
-    public static void startEventPlanner() {
+import christmas.view.InputView;
 
+public class EventPlannerController {
+    InputView inputView = new InputView();
+
+    public void startEventPlanner() {
+        int visitDate = inputView.readDate();
     }
 }
