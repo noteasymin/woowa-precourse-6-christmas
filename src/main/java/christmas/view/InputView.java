@@ -1,6 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.exception.ErrorMessages;
 
 public class InputView {
     public int readDate() {
@@ -19,12 +20,12 @@ public class InputView {
 
     private void validateDateInput(String input) {
         if (!input.matches("\\d+")) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessages.INVALID_NUMBER);
         }
 
         int date = Integer.parseInt(input);
         if (date < 1 || date > 31) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ErrorMessages.INVALID_DATE_RANGE);
         }
     }
 
