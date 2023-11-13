@@ -1,4 +1,4 @@
-package christmas.model;
+package christmas.enums;
 
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", 6000, Category.APPETIZER),
@@ -22,6 +22,15 @@ public enum Menu {
         this.name = name;
         this.price = price;
         this.category = category;
+    }
+
+    public static boolean inMenuFromKorean(String name) {
+        for (Menu menu: Menu.values()) {
+            if (menu.name.equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public int getPrice() {
