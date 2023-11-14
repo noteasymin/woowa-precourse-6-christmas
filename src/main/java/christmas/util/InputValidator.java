@@ -27,24 +27,31 @@ public class InputValidator {
         Map<String, Integer> orderDetails = new HashMap<>();
 
         for (String order : orders) {
-            validOrder(orderDetails, order);
+            validateOrderInput(orderDetails, order);
         }
         return orderDetails;
     }
 
-    private void validOrder(Map<String, Integer> orderDetails, String order) {
+    private void validateOrderInput(Map<String, Integer> orderDetails, String order) {
         String[] splitOrder = order.split("-");
         try {
             String name = getNameBySplit(splitOrder);
             int quantity = getQuantityBySplit(splitOrder);
+
             if (!isMenuValid(name)) {
                 throw new IllegalArgumentException(ErrorMessages.INVALID_MENU);
             }
+            if (checkDuplicateOrder(orderDetails, name)) {
+                throw new IllegalArgumentException(ErrorMessages.DUPLICATE_MENU);
+            }
             orderDetails.put(name, quantity);
-
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(ErrorMessages.INVALID_MENU);
         }
+    }
+
+    private boolean checkDuplicateOrder(Map<String, Integer> orderDetails, String name) {
+        return orderDetails.containsKey(name);
     }
 
     private boolean isMenuValid(String name) {
