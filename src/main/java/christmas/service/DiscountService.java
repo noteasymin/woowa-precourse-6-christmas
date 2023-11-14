@@ -11,6 +11,24 @@ public class DiscountService {
     public int calculateTotalDiscount(int visitDate, List<Order> orders) {
         int christmasDiscount = calculateChristmasDiscount(visitDate);
         int weekdayDiscount = calculateWeekdayDiscount(visitDate, orders);
+        int weekendDiscount = calculateWeekendDiscount(visitDate, orders);
+        return 0;
+    }
+
+    private int calculateWeekendDiscount(int visitDate, List<Order> orders) {
+        int weekendDiscount = 0;
+        if (isWeekend(visitDate)) {
+            for (Order order : orders) {
+                weekendDiscount += calculateWeekendMainDiscount(order);
+            }
+        }
+        return weekendDiscount;
+    }
+
+    private int calculateWeekendMainDiscount(Order order) {
+        if (order.getCategory().equals("MAIN")) {
+            return 2023;
+        }
         return 0;
     }
 
