@@ -1,5 +1,7 @@
 package christmas.enums;
 
+import christmas.exception.ErrorMessages;
+
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", 6000, Category.APPETIZER),
     TAPAS("타파스", 5000, Category.APPETIZER),
@@ -25,12 +27,21 @@ public enum Menu {
     }
 
     public static boolean inMenuFromKorean(String name) {
-        for (Menu menu: Menu.values()) {
+        for (Menu menu : Menu.values()) {
             if (menu.name.equals(name)) {
                 return true;
             }
         }
         return false;
+    }
+
+    public static Menu getMenuFromKoreanName(String koreanName) {
+        for (Menu menu : Menu.values()) {
+            if (menu.getName().equals(koreanName)) {
+                return menu;
+            }
+        }
+        throw new IllegalArgumentException(ErrorMessages.INVALID_MENU_NAME);
     }
 
     public int getPrice() {
