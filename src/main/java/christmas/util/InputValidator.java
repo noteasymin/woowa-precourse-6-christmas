@@ -1,20 +1,21 @@
 package christmas.util;
 
 import christmas.enums.Menu;
-import christmas.exception.ErrorMessages;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static christmas.exception.ErrorMessages.*;
+
 public class InputValidator {
     public void validateDateInput(String input) {
         if (!input.matches("\\d+")) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_NUMBER);
+            throw new IllegalArgumentException(INVALID_NUMBER);
         }
 
         int date = Integer.parseInt(input);
         if (date < 1 || date > 31) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_DATE_RANGE);
+            throw new IllegalArgumentException(INVALID_DATE_RANGE);
         }
     }
 
@@ -24,7 +25,16 @@ public class InputValidator {
                 .sum();
 
         if (totalQuantity > 20) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_ORDER_QUANTITY);
+            throw new IllegalArgumentException(INVALID_ORDER_QUANTITY);
+        }
+    }
+
+    private void validateDrinkOnlyOrder(Map<String, Integer> orderDetails) {
+        boolean isDrinkOnly = orderDetails.keySet().stream()
+                .allMatch(name -> Menu.getMenuFromKoreanName(name).getCategory() == Menu.Category.DRINK);
+
+        if (isDrinkOnly) {
+            throw new IllegalArgumentException(DRINK_ONLY_ORDER_NOT_ALLOWED);
         }
     }
 
@@ -33,6 +43,7 @@ public class InputValidator {
         Map<String, Integer> orderDetails = countOrder(orders);
 
         validateOrderQuantity(orderDetails);
+        validateDrinkOnlyOrder(orderDetails);
 
         return orderDetails;
     }
@@ -53,14 +64,14 @@ public class InputValidator {
             int quantity = getQuantityBySplit(splitOrder);
 
             if (!isMenuValid(name)) {
-                throw new IllegalArgumentException(ErrorMessages.INVALID_MENU);
+                throw new IllegalArgumentException(INVALID_MENU);
             }
             if (validateDuplicateOrder(orderDetails, name)) {
-                throw new IllegalArgumentException(ErrorMessages.DUPLICATE_MENU);
+                throw new IllegalArgumentException(DUPLICATE_MENU);
             }
             orderDetails.put(name, quantity);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_MENU);
+            throw new IllegalArgumentException(INVALID_MENU);
         }
     }
 
@@ -81,7 +92,7 @@ public class InputValidator {
         try {
             return Integer.parseInt(splitOrder[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException(ErrorMessages.INVALID_MENU);
+            throw new IllegalArgumentException(INVALID_MENU);
         }
     }
 
