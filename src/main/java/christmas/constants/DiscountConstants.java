@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DiscountConstants {
+    public static final int GIFT_EVENT_START = 120000;
+    public static final int GIFT_PRICE = 25000;
+
     public static final int CHRISTMAS_DISCOUNT_START = 1000;
     public static final int CHRISTMAS_DISCOUNT_INCREMENT = 100;
 

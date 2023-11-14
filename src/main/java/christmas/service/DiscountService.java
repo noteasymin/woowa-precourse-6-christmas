@@ -1,5 +1,6 @@
 package christmas.service;
 
+import christmas.model.Discount;
 import christmas.model.Order;
 
 import java.time.DayOfWeek;
@@ -10,11 +11,19 @@ import java.util.List;
 import static christmas.constants.DiscountConstants.*;
 
 public class DiscountService {
-    public int calculateTotalDiscount(int visitDate, List<Order> orders) {
+    public Discount calculateTotalDiscount(int visitDate, List<Order> orders, int totalAmount) {
         int christmasDiscount = calculateChristmasDiscount(visitDate);
         int weekdayDiscount = calculateWeekdayDiscount(visitDate, orders);
         int weekendDiscount = calculateWeekendDiscount(visitDate, orders);
         int specialDiscount = calculateSpecialDiscount(visitDate);
+        int giftMenuDiscount = calculateGiftMenuDiscount(totalAmount);
+        return new Discount(christmasDiscount, weekdayDiscount, weekendDiscount, specialDiscount, giftMenuDiscount);
+    }
+
+    private int calculateGiftMenuDiscount(int totalAmount) {
+        if (totalAmount >= GIFT_EVENT_START) {
+            return GIFT_PRICE;
+        }
         return 0;
     }
 
@@ -29,7 +38,7 @@ public class DiscountService {
         int weekendDiscount = 0;
         if (isWeekend(visitDate)) {
             for (Order order : orders) {
-                weekendDiscount += calculateWeekendMainDiscount(order);
+                weekendDiscount += calculateWeekendMainDiscount(order) * order.getQuantity();
             }
         }
         return weekendDiscount;
@@ -46,7 +55,7 @@ public class DiscountService {
         int weekdayDiscount = 0;
         if (isWeekday(visitDate)) {
             for (Order order : orders) {
-                weekdayDiscount += calculateWeekdayDessertDiscount(order);
+                weekdayDiscount += calculateWeekdayDessertDiscount(order) * order.getQuantity();
             }
         }
         return weekdayDiscount;

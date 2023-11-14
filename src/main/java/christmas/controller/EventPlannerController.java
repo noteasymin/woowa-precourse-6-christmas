@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.model.Discount;
 import christmas.model.Order;
 import christmas.service.CalculateService;
 import christmas.service.DiscountService;
@@ -14,9 +15,9 @@ public class EventPlannerController {
 
     public void startEventPlanner() {
         int visitDate = inputView.readDate();
-        List<Order> orders  = inputView.readOrder();
+        List<Order> orders = inputView.readOrder();
         int totalAmount = calculateService.calculateTotalAmount(orders);
-        int totalDiscount = discountService.calculateTotalDiscount(visitDate, orders);
+        Discount Discount = discountService.calculateTotalDiscount(visitDate, orders, totalAmount);
 
     }
 }
