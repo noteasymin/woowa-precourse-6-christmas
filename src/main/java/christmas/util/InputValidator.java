@@ -18,9 +18,23 @@ public class InputValidator {
         }
     }
 
+    private void validateOrderQuantity(Map<String, Integer> orderDetails) {
+        int totalQuantity = orderDetails.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+
+        if (totalQuantity > 20) {
+            throw new IllegalArgumentException(ErrorMessages.INVALID_ORDER_QUANTITY);
+        }
+    }
+
     public Map<String, Integer> validateOrders(String input) {
         String[] orders = splitOrderByCommas(input);
-        return countOrder(orders);
+        Map<String, Integer> orderDetails = countOrder(orders);
+
+        validateOrderQuantity(orderDetails);
+
+        return orderDetails;
     }
 
     private Map<String, Integer> countOrder(String[] orders) {
@@ -41,7 +55,7 @@ public class InputValidator {
             if (!isMenuValid(name)) {
                 throw new IllegalArgumentException(ErrorMessages.INVALID_MENU);
             }
-            if (checkDuplicateOrder(orderDetails, name)) {
+            if (validateDuplicateOrder(orderDetails, name)) {
                 throw new IllegalArgumentException(ErrorMessages.DUPLICATE_MENU);
             }
             orderDetails.put(name, quantity);
@@ -50,7 +64,7 @@ public class InputValidator {
         }
     }
 
-    private boolean checkDuplicateOrder(Map<String, Integer> orderDetails, String name) {
+    private boolean validateDuplicateOrder(Map<String, Integer> orderDetails, String name) {
         return orderDetails.containsKey(name);
     }
 
