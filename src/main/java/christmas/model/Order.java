@@ -3,10 +3,12 @@ package christmas.model;
 public class Order {
     private String menuName;
     private int quantity;
+    private String category;
 
-    public Order(String menuName, int quantity) {
+    public Order(String menuName, int quantity, String category) {
         this.menuName = menuName;
         this.quantity = quantity;
+        this.category = category;
     }
 
     public String getMenuName() {
@@ -15,5 +17,9 @@ public class Order {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public String getCategory() {
+        return category;
     }
 }

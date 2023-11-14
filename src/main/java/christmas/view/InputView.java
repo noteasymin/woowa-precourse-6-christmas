@@ -1,6 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.enums.Menu;
 import christmas.model.Order;
 import christmas.util.InputValidator;
 import christmas.util.PromptMessages;
@@ -49,7 +50,12 @@ public class InputView {
         List<Order> orders = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entry : validatedOrders.entrySet()) {
-            Order order = new Order(entry.getKey(), entry.getValue());
+            String menuName = entry.getKey();
+            int quantity = entry.getValue();
+
+            Menu menu = Menu.getMenuFromKoreanName(menuName);
+            String category = menu.getCategory().toString();
+            Order order = new Order(menuName, quantity, category);
             orders.add(order);
         }
         return orders;
