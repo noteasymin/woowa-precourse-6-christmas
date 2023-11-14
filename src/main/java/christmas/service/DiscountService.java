@@ -12,6 +12,9 @@ import static christmas.constants.DiscountConstants.*;
 
 public class DiscountService {
     public Discount calculateTotalDiscount(int visitDate, List<Order> orders, int totalAmount) {
+        if (totalAmount < 10000) {
+            return new Discount(0, 0, 0, 0, 0);
+        }
         int christmasDiscount = calculateChristmasDiscount(visitDate);
         int weekdayDiscount = calculateWeekdayDiscount(visitDate, orders);
         int weekendDiscount = calculateWeekendDiscount(visitDate, orders);
