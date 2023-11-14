@@ -7,8 +7,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
-import static christmas.constants.DiscountConstants.SPECIAL_DISCOUNT_AMOUNT;
-import static christmas.constants.DiscountConstants.SPECIAL_DISCOUNT_DAYS;
+import static christmas.constants.DiscountConstants.*;
 
 public class DiscountService {
     public int calculateTotalDiscount(int visitDate, List<Order> orders) {
@@ -37,8 +36,8 @@ public class DiscountService {
     }
 
     private int calculateWeekendMainDiscount(Order order) {
-        if (order.getCategory().equals("MAIN")) {
-            return 2023;
+        if (order.getCategory().equals(CATEGORY_MAIN)) {
+            return WEEKEND_MAIN_DISCOUNT;
         }
         return 0;
     }
@@ -54,16 +53,16 @@ public class DiscountService {
     }
 
     private int calculateWeekdayDessertDiscount(Order order) {
-        if (order.getCategory().equals("DESSERT")) {
-            return 2023;
+        if (order.getCategory().equals(CATEGORY_DESSERT)) {
+            return WEEKDAY_DESSERT_DISCOUNT;
         }
         return 0;
     }
 
     private int calculateChristmasDiscount(int visitDate) {
         if (visitDate <= 25) {
-            int christmasDiscount = 1000;
-            christmasDiscount += visitDate * 100 - 100;
+            int christmasDiscount = CHRISTMAS_DISCOUNT_START;
+            christmasDiscount += visitDate * CHRISTMAS_DISCOUNT_INCREMENT - CHRISTMAS_DISCOUNT_INCREMENT;
             return christmasDiscount;
         }
         return 0;
