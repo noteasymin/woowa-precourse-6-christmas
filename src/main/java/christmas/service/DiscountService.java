@@ -7,11 +7,22 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+import static christmas.constants.DiscountConstants.SPECIAL_DISCOUNT_AMOUNT;
+import static christmas.constants.DiscountConstants.SPECIAL_DISCOUNT_DAYS;
+
 public class DiscountService {
     public int calculateTotalDiscount(int visitDate, List<Order> orders) {
         int christmasDiscount = calculateChristmasDiscount(visitDate);
         int weekdayDiscount = calculateWeekdayDiscount(visitDate, orders);
         int weekendDiscount = calculateWeekendDiscount(visitDate, orders);
+        int specialDiscount = calculateSpecialDiscount(visitDate);
+        return 0;
+    }
+
+    private int calculateSpecialDiscount(int visitDate) {
+        if (SPECIAL_DISCOUNT_DAYS.contains(visitDate)) {
+            return SPECIAL_DISCOUNT_AMOUNT;
+        }
         return 0;
     }
 
