@@ -16,8 +16,10 @@ public class EventPlannerController {
     public void startEventPlanner() {
         int visitDate = inputView.readDate();
         List<Order> orders = inputView.readOrder();
+
         int totalAmount = calculateService.calculateTotalAmount(orders);
         Discount Discount = discountService.calculateTotalDiscount(visitDate, orders, totalAmount);
+
 
     }
 }

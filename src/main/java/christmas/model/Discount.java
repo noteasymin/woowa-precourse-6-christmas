@@ -36,7 +36,11 @@ public class Discount {
         return giftMenuDiscount;
     }
 
-    public int getTotalDiscount() {
+    public int getTotalBenefits() {
         return christmasDiscount + weekdayDiscount + weekendDiscount + specialDiscount + giftMenuDiscount;
+    }
+
+    public int getTotalDiscount() {
+        return christmasDiscount + weekdayDiscount + weekendDiscount + specialDiscount;
     }
 }
