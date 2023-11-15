@@ -36,4 +36,39 @@ public class InputTest {
         assertThatThrownBy(() -> validator.validateDateInput(" "))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    @DisplayName("주문이 공백일 경우 예외를 던져야 한다.")
+    void 주문_공백_예외_테스트() {
+        assertThatThrownBy(() -> validator.validateOrders(""))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("주문이 하이픈이 없을 경우 예외를 던져야 한다.")
+    void 주문_하이픈_없는_예외_테스트() {
+        assertThatThrownBy(() -> validator.validateOrders("티본스테이크1"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("주문이 숫자가 없는 경우 예외를 던져야 한다.")
+    void 주문_개수가_없는_예외_테스트() {
+        assertThatThrownBy(() -> validator.validateOrders("티본스테이크-한개"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("주문이 메뉴가 없는 경우 예외를 던져야 한다.")
+    void 주문_메뉴_없는_예외_테스트() {
+        assertThatThrownBy(() -> validator.validateOrders("-1"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("주문이 메뉴와 개수가 없는 경우 예외를 던져야 한다.")
+    void 주문_하이픈만_있는_예외_테스트() {
+        assertThatThrownBy(() -> validator.validateOrders("-"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
