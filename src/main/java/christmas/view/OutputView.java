@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.enums.Badge;
 import christmas.model.Discount;
 import christmas.model.Order;
 
@@ -23,16 +24,8 @@ public class OutputView {
     }
 
     private void printEventBadge(Discount discount) {
-        String badge = "없음";
         int totalBenefits = discount.getTotalBenefits();
-
-        if (totalBenefits >= 20000) {
-            badge = "산타";
-        } else if (totalBenefits >= 10000) {
-            badge = "트리";
-        } else if (totalBenefits >= 5000) {
-            badge = "별";
-        }
+        Badge badge = Badge.fromTotalBenefits(totalBenefits);
 
         System.out.println();
         System.out.println("<12월 이벤트 배지>");
