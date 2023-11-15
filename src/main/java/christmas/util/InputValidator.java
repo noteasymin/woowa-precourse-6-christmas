@@ -69,6 +69,9 @@ public class InputValidator {
             if (validateDuplicateOrder(orderDetails, name)) {
                 throw new IllegalArgumentException(DUPLICATE_MENU);
             }
+            if (quantity < 1) {
+                throw new IllegalArgumentException(INVALID_ORDER_QUANTITY);
+            }
             orderDetails.put(name, quantity);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(INVALID_MENU);
