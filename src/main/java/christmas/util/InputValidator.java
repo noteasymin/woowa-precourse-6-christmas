@@ -5,6 +5,12 @@ import christmas.enums.Menu;
 import java.util.HashMap;
 import java.util.Map;
 
+import static christmas.constants.DateConstants.MAX_VALID_DATE;
+import static christmas.constants.DateConstants.MIN_VALID_DATE;
+import static christmas.constants.OrderConstants.MAX_ORDER_QUANTITY;
+import static christmas.constants.OrderConstants.MIN_ORDER_QUANTITY;
+import static christmas.constants.TextConstants.COMMA;
+import static christmas.constants.TextConstants.HYPHEN;
 import static christmas.exception.ErrorMessages.*;
 
 public class InputValidator {
@@ -14,7 +20,7 @@ public class InputValidator {
         }
 
         int date = Integer.parseInt(input);
-        if (date < 1 || date > 31) {
+        if (date < MIN_VALID_DATE || date > MAX_VALID_DATE) {
             throw new IllegalArgumentException(INVALID_DATE_RANGE);
         }
     }
@@ -24,7 +30,7 @@ public class InputValidator {
                 .mapToInt(Integer::intValue)
                 .sum();
 
-        if (totalQuantity > 20) {
+        if (totalQuantity > MAX_ORDER_QUANTITY) {
             throw new IllegalArgumentException(INVALID_ORDER_QUANTITY);
         }
     }
@@ -58,7 +64,7 @@ public class InputValidator {
     }
 
     private void validateOrderInput(Map<String, Integer> orderDetails, String order) {
-        String[] splitOrder = order.split("-");
+        String[] splitOrder = order.split(HYPHEN);
         try {
             String name = getNameBySplit(splitOrder);
             int quantity = getQuantityBySplit(splitOrder);
@@ -69,7 +75,7 @@ public class InputValidator {
             if (validateDuplicateOrder(orderDetails, name)) {
                 throw new IllegalArgumentException(DUPLICATE_MENU);
             }
-            if (quantity < 1) {
+            if (quantity < MIN_ORDER_QUANTITY) {
                 throw new IllegalArgumentException(INVALID_ORDER_QUANTITY);
             }
             orderDetails.put(name, quantity);
@@ -104,6 +110,6 @@ public class InputValidator {
     }
 
     private String[] splitOrderByCommas(String input) {
-        return input.split(",");
+        return input.split(COMMA);
     }
 }
