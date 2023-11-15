@@ -85,7 +85,11 @@ public class InputValidator {
 
 
     private String getNameBySplit(String[] splitOrder) {
-        return splitOrder[0];
+        try {
+            return splitOrder[0];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException(INVALID_MENU);
+        }
     }
 
     private int getQuantityBySplit(String[] splitOrder) {
