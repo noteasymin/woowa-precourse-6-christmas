@@ -4,11 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DiscountConstants {
+    public static final int CURRENT_YEAR = 2023;
+
+    public static final int MINIMUM_AMOUNT_FOR_DISCOUNT = 10000;
     public static final int GIFT_EVENT_START = 120000;
     public static final int GIFT_PRICE = 25000;
 
     public static final int CHRISTMAS_DISCOUNT_START = 1000;
     public static final int CHRISTMAS_DISCOUNT_INCREMENT = 100;
+    public static final int CHRISTMAS_DISCOUNT_END_DAY = 25;
 
     public static final int WEEKDAY_DESSERT_DISCOUNT = 2023;
     public static final int WEEKEND_MAIN_DISCOUNT = 2023;

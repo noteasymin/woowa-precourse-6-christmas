@@ -12,7 +12,7 @@ import static christmas.constants.DiscountConstants.*;
 
 public class DiscountService {
     public Discount calculateTotalDiscount(int visitDate, List<Order> orders, int totalAmount) {
-        if (totalAmount < 10000) {
+        if (totalAmount < MINIMUM_AMOUNT_FOR_DISCOUNT) {
             return new Discount(0, 0, 0, 0, 0);
         }
         int christmasDiscount = calculateChristmasDiscount(visitDate);
@@ -72,7 +72,7 @@ public class DiscountService {
     }
 
     private int calculateChristmasDiscount(int visitDate) {
-        if (visitDate <= 25) {
+        if (visitDate <= CHRISTMAS_DISCOUNT_END_DAY) {
             int christmasDiscount = CHRISTMAS_DISCOUNT_START;
             christmasDiscount += visitDate * CHRISTMAS_DISCOUNT_INCREMENT - CHRISTMAS_DISCOUNT_INCREMENT;
             return christmasDiscount;
@@ -81,7 +81,7 @@ public class DiscountService {
     }
 
     public boolean isWeekend(int dayOfMonth) {
-        LocalDate date = LocalDate.of(2023, Month.DECEMBER, dayOfMonth);
+        LocalDate date = LocalDate.of(CURRENT_YEAR, Month.DECEMBER, dayOfMonth);
         DayOfWeek dayOfWeek = date.getDayOfWeek();
 
         return dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY;
