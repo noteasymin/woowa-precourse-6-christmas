@@ -71,4 +71,25 @@ public class InputTest {
         assertThatThrownBy(() -> validator.validateOrders("-"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    @DisplayName("주문 메뉴가 존재하지 않을 경우 예외를 던져야 한다.")
+    void 없는_메뉴_예외_테스트() {
+        assertThatThrownBy(() -> validator.validateOrders("신라면-1"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("주문 메뉴가 20개가 넘을 경우 예외를 던져야 한다.")
+    void 메뉴_주문_20개_초과_예외_테스트() {
+        assertThatThrownBy(() -> validator.validateOrders("티본스테이크-21"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    @DisplayName("주문 메뉴가 1개 미만일 경우 예외를 던져야 한다.")
+    void 주문_메뉴_0개_이하_예외_테스트() {
+        assertThatThrownBy(() -> validator.validateOrders("티본스테이크-0"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }
