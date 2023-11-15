@@ -50,11 +50,8 @@ public class OutputView {
         int totalBenefits = discount.getTotalBenefits();
         System.out.println();
         System.out.println("<총혜택 금액>");
-        if (totalBenefits > 0) {
-            System.out.println("-" + numberFormat.format(totalBenefits) + "원");
-        } else if (totalBenefits == 0) {
-            System.out.println(totalBenefits + "원");
-        }
+        System.out.println(numberFormat.format(-totalBenefits) + "원");
+
     }
 
     private void printBenefits(Discount discount) {
